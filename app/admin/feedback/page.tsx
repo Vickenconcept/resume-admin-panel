@@ -25,7 +25,21 @@ interface Pagination {
   totalPages: number;
 }
 
-const API_URL = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api`;
+const getApiUrl = () => {
+  // NEXT_PUBLIC_* variables are embedded at build time
+  // Make sure NEXT_PUBLIC_API_URL is set in Vercel environment variables
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (!apiUrl) {
+    // Fallback: use production URL if not localhost
+    if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
+      return 'https://onpagecv.on-forge.com';
+    }
+    return 'http://localhost:3000';
+  }
+  return apiUrl;
+};
+
+const API_URL = `${getApiUrl()}/api`;
 
 export default function FeedbackPage() {
   const [feedback, setFeedback] = useState<Feedback[]>([]);
