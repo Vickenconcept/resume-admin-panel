@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">R</span>
               </div>
-              <span className="text-2xl font-bold text-gray-900">On Page CV</span>
+              <span className="text-2xl font-bold text-gray-900">OnPage CV</span>
             </Link>
             <div className="flex items-center space-x-4">
               <Link
@@ -43,10 +43,10 @@ export default function PrivacyPolicyPage() {
             <section className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Introduction</h2>
               <p className="text-gray-700 mb-4">
-                On Page CV ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Chrome extension and related services.
+                OnPage CV ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Chrome extension and related services.
               </p>
               <p className="text-gray-700">
-                By using On Page CV, you agree to the collection and use of information in accordance with this policy. If you do not agree with our policies and practices, please do not use our service.
+                By using OnPage CV, you agree to the collection and use of information in accordance with this policy. If you do not agree with our policies and practices, please do not use our service.
               </p>
             </section>
 
@@ -224,7 +224,7 @@ export default function PrivacyPolicyPage() {
       <footer className="bg-gray-900 text-white mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
-            <p className="text-gray-400">© {new Date().getFullYear()} On Page CV. All rights reserved.</p>
+            <p className="text-gray-400">© {new Date().getFullYear()} OnPage CV. All rights reserved.</p>
             <div className="mt-4 flex justify-center space-x-6">
               <Link href="/privacy" className="text-gray-400 hover:text-white">
                 Privacy Policy
