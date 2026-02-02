@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Admin Dashboard - Resume Builder
 
-## Getting Started
+A Next.js admin dashboard for managing users, payments, and system configuration for the Resume Builder Chrome Extension.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Landing Page**: Marketing page for the extension
+- **Admin Login**: Secure authentication for admin users
+- **Admin Dashboard**: User management, statistics, and system overview
+- **Payment Success Page**: Redirect page after successful Paystack payment
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Configure Environment Variables**:
+   Create a `.env.local` file:
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:3000
+   ```
 
-## Learn More
+3. **Run Development Server**:
+   ```bash
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Access the Application**:
+   - Landing Page: http://localhost:3002
+   - Admin Login: http://localhost:3002/admin/login
+   - Admin Dashboard: http://localhost:3002/admin/dashboard
+   - Payment Success: http://localhost:3002/payment/success
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Admin Access
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To create an admin user:
 
-## Deploy on Vercel
+1. Register a user through the extension or API
+2. Update the user's role in the database:
+   ```sql
+   UPDATE users SET role = 'admin' WHERE email = 'your-email@example.com';
+   ```
+3. Or use the admin dashboard to change a user's role (if you already have admin access)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Endpoints
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The dashboard uses the following admin API endpoints:
+
+- `POST /api/admin/login` - Admin login
+- `GET /api/admin/stats` - Dashboard statistics
+- `GET /api/admin/users` - Get all users (paginated)
+- `GET /api/admin/users/:id` - Get user details
+- `PUT /api/admin/users/:id` - Update user (credits, role, etc.)
+- `GET /api/admin/payment-plans` - Get payment plans
+- `PUT /api/admin/payment-plans` - Update payment plans
+
+## Payment Success Flow
+
+1. User completes payment on Paystack
+2. Extension polls for payment verification
+3. Backend verifies payment and returns `successPageUrl`
+4. Extension opens success page in new tab
+5. Success page verifies payment and displays confirmation
+
+## Production Deployment
+
+1. Set `NEXT_PUBLIC_API_URL` to your production API URL
+2. Build the application:
+   ```bash
+   npm run build
+   ```
+3. Start the production server:
+   ```bash
+   npm start
+   ```
+
+## Notes
+
+- The admin dashboard requires users with `role = 'admin'` in the database
+- All admin routes are protected and require authentication
+- Payment success page can be accessed directly with a reference parameter
