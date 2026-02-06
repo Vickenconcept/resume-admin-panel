@@ -1,6 +1,8 @@
+import Image from "next/image";
+
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="relative min-h-screen overflow-hidden bg-linear-to-br from-blue-50 via-white to-purple-50">
       <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-blue-200/40 blur-3xl pulse-soft" />
       <div className="pointer-events-none absolute top-40 -left-24 h-72 w-72 rounded-full bg-purple-200/40 blur-3xl float-slower" />
       <div className="pointer-events-none absolute bottom-10 right-10 h-56 w-56 rounded-full bg-indigo-200/40 blur-3xl float-slow" />
@@ -8,9 +10,15 @@ export default function LandingPage() {
       <header className="bg-white/70 backdrop-blur shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">R</span>
+            <div className="flex items-center space-x-3">
+              <div className="h-11 w-11 overflow-hidden rounded-xl shadow-sm">
+                <Image
+                  src="/images/onpagecv-logo.png"
+                  alt="OnPage CV logo"
+                  width={44}
+                  height={44}
+                  priority
+                />
               </div>
               <span className="text-2xl font-bold text-gray-900">OnPage CV</span>
             </div>
@@ -74,7 +82,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-lg">
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-blue-200/60 to-purple-200/60 blur-2xl" />
+            <div className="absolute -inset-4 rounded-3xl bg-linear-to-br from-blue-200/60 to-purple-200/60 blur-2xl" />
             <div className="relative rounded-3xl bg-white/90 p-8 shadow-2xl">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-lg font-bold">
@@ -193,7 +201,7 @@ export default function LandingPage() {
         </div>
 
         {/* Final CTA */}
-        <div className="mt-24 rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 p-12 text-center text-white shadow-2xl">
+        <div className="mt-24 rounded-3xl bg-linear-to-r from-blue-600 to-purple-600 p-12 text-center text-white shadow-2xl">
           <h2 className="text-3xl md:text-4xl font-bold">Ready to tailor your resume in seconds?</h2>
           <p className="mt-4 text-lg text-blue-100">
             Install OnPage CV and start applying with confidence today.
