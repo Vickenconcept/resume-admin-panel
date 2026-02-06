@@ -17,15 +17,16 @@ const siteUrl = new URL("https://resume.phanrise.com");
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
-    default: "OnPage CV - AI Resume Builder Chrome Extension",
+    default: "OnPage CV – Tailor Your Resume on Any Job Page | Chrome Extension",
     template: "%s | OnPage CV",
   },
   description:
-    "OnPage CV is an AI resume builder Chrome extension that tailors your resume to any job description instantly.",
+    "OnPage CV lets you tailor and optimize your resume instantly on the job page — no tab switching. AI-powered resume builder & cover letter generator for LinkedIn, Indeed & more.",
   applicationName: "OnPage CV",
   keywords: [
     "OnPage CV",
     "OnPageCV",
+    "resume tailor chrome extension",
     "AI resume builder",
     "resume tailoring",
     "ATS resume",
@@ -39,15 +40,15 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "OnPage CV",
-    title: "OnPage CV - AI Resume Builder Chrome Extension",
+    title: "OnPage CV – Tailor Your Resume on Any Job Page | Chrome Extension",
     description:
-      "Tailor your resume to any job description instantly with OnPage CV's AI-powered keyword optimization.",
+      "OnPage CV lets you tailor and optimize your resume instantly on the job page — no tab switching.",
   },
   twitter: {
     card: "summary",
-    title: "OnPage CV - AI Resume Builder Chrome Extension",
+    title: "OnPage CV – Tailor Your Resume on Any Job Page | Chrome Extension",
     description:
-      "AI-powered resume tailoring for faster, ATS-friendly applications. Install OnPage CV today.",
+      "AI-powered resume builder for faster, ATS-friendly applications. Install OnPage CV today.",
   },
   robots: {
     index: true,
@@ -67,8 +68,33 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "OnPage CV",
+    operatingSystem: "Chrome",
+    applicationCategory: "BrowserExtension",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    description:
+      "Tailor your resume directly on any job page. No tab switching. AI-powered resume optimization for faster applications.",
+    url: "https://resume.phanrise.com",
+    downloadUrl:
+      "https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni",
+  };
+
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          // JSON-LD for Google rich results
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
