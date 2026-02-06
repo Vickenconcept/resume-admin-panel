@@ -211,9 +211,9 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white mt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center space-y-3">
-            <p className="text-gray-400">© 2024 OnPage CV. All rights reserved.</p>
+            <p className="text-gray-400">© 2026 OnPage CV. All rights reserved.</p>
             <a href="/privacy" className="text-sm text-gray-300 hover:text-white transition-colors">
               Privacy Policy
             </a>
