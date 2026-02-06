@@ -12,9 +12,54 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = new URL("https://resume.phanrise.com");
+
 export const metadata: Metadata = {
-  title: "Resume Builder - AI-Powered Resume Tailoring",
-  description: "Tailor your resume to any job description instantly with AI-powered keyword optimization",
+  metadataBase: siteUrl,
+  title: {
+    default: "OnPage CV - AI Resume Builder Chrome Extension",
+    template: "%s | OnPage CV",
+  },
+  description:
+    "OnPage CV is an AI resume builder Chrome extension that tailors your resume to any job description instantly.",
+  applicationName: "OnPage CV",
+  keywords: [
+    "OnPage CV",
+    "OnPageCV",
+    "AI resume builder",
+    "resume tailoring",
+    "ATS resume",
+    "Chrome extension",
+    "resume optimization",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: "OnPage CV",
+    title: "OnPage CV - AI Resume Builder Chrome Extension",
+    description:
+      "Tailor your resume to any job description instantly with OnPage CV's AI-powered keyword optimization.",
+  },
+  twitter: {
+    card: "summary",
+    title: "OnPage CV - AI Resume Builder Chrome Extension",
+    description:
+      "AI-powered resume tailoring for faster, ATS-friendly applications. Install OnPage CV today.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function RootLayout({
