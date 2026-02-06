@@ -8,6 +8,7 @@ export default function Sidebar() {
 
   const menuItems = [
     { href: '/admin/dashboard', label: 'Dashboard', icon: '📊' },
+    { href: '/admin/payments', label: 'Payments', icon: '💰' },
     { href: '/admin/payment-plans', label: 'Payment Plans', icon: '💳' },
     { href: '/admin/feedback', label: 'Feedback', icon: '💬' },
   ];
