@@ -24,7 +24,7 @@ export default function LandingPage() {
                 Admin Login
               </Link>
               <a
-                href="https://chrome.google.com/webstore"
+                href="https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni?utm_source=item-share-cb"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
