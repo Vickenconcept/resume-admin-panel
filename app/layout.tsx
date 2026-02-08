@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | OnPage CV",
   },
   description:
-    "OnPage CV lets you tailor and optimize your resume instantly on the job page — no tab switching. AI-powered resume builder & cover letter generator for LinkedIn, Indeed & more.",
+    "OnPage CV (often searched as onpage cv or on-page cv) lets you tailor and optimize your resume instantly on the job page — no tab switching. AI-powered resume builder & cover letter generator for LinkedIn, Indeed & more.",
   applicationName: "OnPage CV",
   keywords: [
     "OnPage CV",
@@ -36,19 +36,24 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName: "OnPage CV",
     title: "OnPage CV – Tailor Your Resume on Any Job Page | Chrome Extension",
     description:
-      "OnPage CV lets you tailor and optimize your resume instantly on the job page — no tab switching.",
+      "OnPage CV (onpage cv, on-page cv) lets you tailor and optimize your resume instantly on the job page — no tab switching.",
   },
   twitter: {
     card: "summary",
     title: "OnPage CV – Tailor Your Resume on Any Job Page | Chrome Extension",
     description:
-      "AI-powered resume builder for faster, ATS-friendly applications. Install OnPage CV today.",
+      "AI-powered resume builder for faster, ATS-friendly applications. Find us as OnPage CV, onpage cv, or on-page cv.",
   },
   robots: {
     index: true,

@@ -50,6 +50,10 @@ export default function LandingPage() {
               Tailor your resume to any job description instantly. Generate ATS-compliant resumes
               with AI-powered keyword optimization, strong impact verbs, and clean formatting.
             </p>
+            <p className="text-base text-gray-500 mt-4 max-w-2xl">
+              Whether you search for OnPage CV, onpage cv, or on-page cv, this Chrome extension
+              helps you tailor your resume right on the job page.
+            </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
               <a
                 href="https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni?utm_source=item-share-cb"
