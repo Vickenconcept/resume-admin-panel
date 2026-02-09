@@ -97,13 +97,14 @@ export default function AdminDashboard() {
 
   const handleLogout = () => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    const adminToken = localStorage.getItem('adminToken');
+    const authHeaders: HeadersInit | undefined = adminToken
+      ? { Authorization: `Bearer ${adminToken}` }
+      : undefined;
     fetch(`${apiUrl}/api/admin/logout`, {
       method: 'POST',
       credentials: 'include',
-      headers: (() => {
-        const adminToken = localStorage.getItem('adminToken');
-        return adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
-      })(),
+      headers: authHeaders,
     }).finally(() => {
       localStorage.removeItem('adminUser');
       localStorage.removeItem('adminToken');
@@ -114,12 +115,14 @@ export default function AdminDashboard() {
   const handleUpdateUser = async (userId: number, field: string, value: any) => {
     try {
       const adminToken = localStorage.getItem('adminToken');
-      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+      const authHeaders: HeadersInit | undefined = adminToken
+        ? { Authorization: `Bearer ${adminToken}` }
+        : undefined;
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          ...authHeaders,
+          ...(authHeaders || {}),
         },
         credentials: 'include',
         body: JSON.stringify({ [field]: value }),

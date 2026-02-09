@@ -71,12 +71,14 @@ export default function FeedbackPage() {
       if (filterRating) params.append('rating', filterRating);
 
       const adminToken = localStorage.getItem('adminToken');
-      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+      const authHeaders: HeadersInit | undefined = adminToken
+        ? { Authorization: `Bearer ${adminToken}` }
+        : undefined;
 
       const response = await fetch(`${API_URL}/admin/feedback?${params}`, {
         headers: {
           'Content-Type': 'application/json',
-          ...authHeaders,
+          ...(authHeaders || {}),
         },
         credentials: 'include',
       });

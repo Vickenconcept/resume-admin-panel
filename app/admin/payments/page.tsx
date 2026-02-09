@@ -65,7 +65,9 @@ export default function PaymentsPage() {
       if (statusFilter) params.append('status', statusFilter);
 
       const adminToken = localStorage.getItem('adminToken');
-      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+      const authHeaders: HeadersInit | undefined = adminToken
+        ? { Authorization: `Bearer ${adminToken}` }
+        : undefined;
 
       const response = await fetch(`${API_URL}/admin/payments?${params}`, {
         credentials: 'include',

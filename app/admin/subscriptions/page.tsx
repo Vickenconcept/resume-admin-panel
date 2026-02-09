@@ -67,7 +67,9 @@ export default function SubscriptionsPage() {
       if (statusFilter) params.append('status', statusFilter);
 
       const adminToken = localStorage.getItem('adminToken');
-      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+      const authHeaders: HeadersInit | undefined = adminToken
+        ? { Authorization: `Bearer ${adminToken}` }
+        : undefined;
 
       const response = await fetch(`${API_URL}/admin/subscriptions?${params}`, {
         credentials: 'include',
@@ -99,13 +101,15 @@ export default function SubscriptionsPage() {
   const updateSubscriptionStatus = async (subscriptionId: number, status: string) => {
     try {
       const adminToken = localStorage.getItem('adminToken');
-      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+      const authHeaders: HeadersInit | undefined = adminToken
+        ? { Authorization: `Bearer ${adminToken}` }
+        : undefined;
       setUpdatingId(subscriptionId);
       const response = await fetch(`${API_URL}/admin/subscriptions/${subscriptionId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          ...authHeaders,
+          ...(authHeaders || {}),
         },
         credentials: 'include',
         body: JSON.stringify({ status }),
@@ -128,12 +132,14 @@ export default function SubscriptionsPage() {
   const cancelSubscription = async (subscriptionId: number) => {
     try {
       const adminToken = localStorage.getItem('adminToken');
-      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+      const authHeaders: HeadersInit | undefined = adminToken
+        ? { Authorization: `Bearer ${adminToken}` }
+        : undefined;
       setUpdatingId(subscriptionId);
       const response = await fetch(`${API_URL}/admin/subscriptions/${subscriptionId}/cancel`, {
         method: 'POST',
         headers: {
-          ...authHeaders,
+          ...(authHeaders || {}),
         },
         credentials: 'include',
       });
