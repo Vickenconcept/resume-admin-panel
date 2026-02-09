@@ -66,12 +66,17 @@ export default function SubscriptionsPage() {
       });
       if (statusFilter) params.append('status', statusFilter);
 
+      const adminToken = localStorage.getItem('adminToken');
+      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+
       const response = await fetch(`${API_URL}/admin/subscriptions?${params}`, {
         credentials: 'include',
+        headers: authHeaders,
       });
 
       if (response.status === 401 || response.status === 403) {
         localStorage.removeItem('adminUser');
+        localStorage.removeItem('adminToken');
         window.location.href = '/admin/login';
         return;
       }
@@ -93,11 +98,14 @@ export default function SubscriptionsPage() {
 
   const updateSubscriptionStatus = async (subscriptionId: number, status: string) => {
     try {
+      const adminToken = localStorage.getItem('adminToken');
+      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
       setUpdatingId(subscriptionId);
       const response = await fetch(`${API_URL}/admin/subscriptions/${subscriptionId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          ...authHeaders,
         },
         credentials: 'include',
         body: JSON.stringify({ status }),
@@ -119,10 +127,13 @@ export default function SubscriptionsPage() {
 
   const cancelSubscription = async (subscriptionId: number) => {
     try {
+      const adminToken = localStorage.getItem('adminToken');
+      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
       setUpdatingId(subscriptionId);
       const response = await fetch(`${API_URL}/admin/subscriptions/${subscriptionId}/cancel`, {
         method: 'POST',
         headers: {
+          ...authHeaders,
         },
         credentials: 'include',
       });

@@ -70,15 +70,20 @@ export default function FeedbackPage() {
       if (filterType) params.append('type', filterType);
       if (filterRating) params.append('rating', filterRating);
 
+      const adminToken = localStorage.getItem('adminToken');
+      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+
       const response = await fetch(`${API_URL}/admin/feedback?${params}`, {
         headers: {
           'Content-Type': 'application/json',
+          ...authHeaders,
         },
         credentials: 'include',
       });
 
       if (response.status === 401 || response.status === 403) {
         localStorage.removeItem('adminUser');
+        localStorage.removeItem('adminToken');
         window.location.href = '/admin/login';
         return;
       }

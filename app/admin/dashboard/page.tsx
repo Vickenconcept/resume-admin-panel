@@ -51,13 +51,18 @@ export default function AdminDashboard() {
   }, [router]);
 
   const loadDashboard = async () => {
+    const adminToken = localStorage.getItem('adminToken');
+    const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+
     try {
       const [statsRes, usersRes] = await Promise.all([
         fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/stats`, {
           credentials: 'include',
+          headers: authHeaders,
         }),
         fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/users?page=${currentPage}&limit=20&search=${search}`, {
           credentials: 'include',
+          headers: authHeaders,
         }),
       ]);
 
@@ -93,18 +98,26 @@ export default function AdminDashboard() {
     fetch(`${apiUrl}/api/admin/logout`, {
       method: 'POST',
       credentials: 'include',
+      headers: (() => {
+        const adminToken = localStorage.getItem('adminToken');
+        return adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+      })(),
     }).finally(() => {
       localStorage.removeItem('adminUser');
+      localStorage.removeItem('adminToken');
       router.push('/admin/login');
     });
   };
 
   const handleUpdateUser = async (userId: number, field: string, value: any) => {
     try {
+      const adminToken = localStorage.getItem('adminToken');
+      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          ...authHeaders,
         },
         credentials: 'include',
         body: JSON.stringify({ [field]: value }),

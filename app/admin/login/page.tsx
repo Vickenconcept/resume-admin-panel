@@ -29,6 +29,11 @@ export default function AdminLoginPage() {
       const data = await response.json();
 
       if (data.success && data.data.user) {
+        if (data.data.token) {
+          localStorage.setItem('adminToken', data.data.token);
+        } else {
+          localStorage.removeItem('adminToken');
+        }
         localStorage.setItem('adminUser', JSON.stringify(data.data.user));
         router.push('/admin/dashboard');
       } else {

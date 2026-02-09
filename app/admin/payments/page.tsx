@@ -64,12 +64,17 @@ export default function PaymentsPage() {
       });
       if (statusFilter) params.append('status', statusFilter);
 
+      const adminToken = localStorage.getItem('adminToken');
+      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+
       const response = await fetch(`${API_URL}/admin/payments?${params}`, {
         credentials: 'include',
+        headers: authHeaders,
       });
 
       if (response.status === 401 || response.status === 403) {
         localStorage.removeItem('adminUser');
+        localStorage.removeItem('adminToken');
         window.location.href = '/admin/login';
         return;
       }

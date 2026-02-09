@@ -35,8 +35,11 @@ export default function PaymentPlansPage() {
 
   const loadPaymentPlans = async () => {
     try {
+      const adminToken = localStorage.getItem('adminToken');
+      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/payment-plans`, {
         credentials: 'include',
+        headers: authHeaders,
       });
 
       if (response.status === 401 || response.status === 403) {
@@ -85,6 +88,8 @@ export default function PaymentPlansPage() {
 
     setSaving(true);
     try {
+      const adminToken = localStorage.getItem('adminToken');
+      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
       const url = editingPlan
         ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/payment-plans/${editingPlan.id}`
         : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/payment-plans`;
@@ -93,6 +98,7 @@ export default function PaymentPlansPage() {
         method: editingPlan ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...authHeaders,
         },
         credentials: 'include',
         body: JSON.stringify({ amount, credits }),
@@ -120,9 +126,12 @@ export default function PaymentPlansPage() {
     }
 
     try {
+      const adminToken = localStorage.getItem('adminToken');
+      const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/payment-plans/${planId}`, {
         method: 'DELETE',
         headers: {
+          ...authHeaders,
         },
         credentials: 'include',
       });
@@ -145,8 +154,13 @@ export default function PaymentPlansPage() {
     fetch(`${apiUrl}/api/admin/logout`, {
       method: 'POST',
       credentials: 'include',
+      headers: (() => {
+        const adminToken = localStorage.getItem('adminToken');
+        return adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+      })(),
     }).finally(() => {
       localStorage.removeItem('adminUser');
+      localStorage.removeItem('adminToken');
       router.push('/admin/login');
     });
   };
