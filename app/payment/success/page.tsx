@@ -32,7 +32,7 @@ function PaymentSuccessContent() {
     // Optionally try to get credit info (non-blocking)
     const getCreditInfo = async () => {
       try {
-        const token = localStorage.getItem('token') || localStorage.getItem('adminToken');
+        const token = localStorage.getItem('token');
         if (!token) return;
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/payment/verify`, {

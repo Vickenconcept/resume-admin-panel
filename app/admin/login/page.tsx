@@ -22,13 +22,13 @@ export default function AdminLoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
-      if (data.success && data.data.token) {
-        localStorage.setItem('adminToken', data.data.token);
+      if (data.success && data.data.user) {
         localStorage.setItem('adminUser', JSON.stringify(data.data.user));
         router.push('/admin/dashboard');
       } else {

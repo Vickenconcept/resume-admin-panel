@@ -39,10 +39,9 @@ export default function AdminDashboard() {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
     const adminUser = localStorage.getItem('adminUser');
     
-    if (!token || !adminUser) {
+    if (!adminUser) {
       router.push('/admin/login');
       return;
     }
@@ -52,18 +51,21 @@ export default function AdminDashboard() {
   }, [router]);
 
   const loadDashboard = async () => {
-    const token = localStorage.getItem('adminToken');
-    if (!token) return;
-
     try {
       const [statsRes, usersRes] = await Promise.all([
         fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/stats`, {
-          headers: { Authorization: `Bearer ${token}` },
+          credentials: 'include',
         }),
         fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/users?page=${currentPage}&limit=20&search=${search}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          credentials: 'include',
         }),
       ]);
+
+      if (statsRes.status === 401 || statsRes.status === 403 || usersRes.status === 401 || usersRes.status === 403) {
+        localStorage.removeItem('adminUser');
+        router.push('/admin/login');
+        return;
+      }
 
       const statsData = await statsRes.json();
       const usersData = await usersRes.json();
@@ -87,22 +89,24 @@ export default function AdminDashboard() {
   }, [currentPage, search]);
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
-    router.push('/admin/login');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    fetch(`${apiUrl}/api/admin/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    }).finally(() => {
+      localStorage.removeItem('adminUser');
+      router.push('/admin/login');
+    });
   };
 
   const handleUpdateUser = async (userId: number, field: string, value: any) => {
-    const token = localStorage.getItem('adminToken');
-    if (!token) return;
-
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
+        credentials: 'include',
         body: JSON.stringify({ [field]: value }),
       });
 

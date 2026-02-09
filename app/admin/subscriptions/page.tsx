@@ -60,12 +60,6 @@ export default function SubscriptionsPage() {
       setLoading(true);
       setError(null);
 
-      const token = localStorage.getItem('adminToken');
-      if (!token) {
-        window.location.href = '/admin/login';
-        return;
-      }
-
       const params = new URLSearchParams({
         page: pagination.page.toString(),
         limit: pagination.limit.toString(),
@@ -73,8 +67,14 @@ export default function SubscriptionsPage() {
       if (statusFilter) params.append('status', statusFilter);
 
       const response = await fetch(`${API_URL}/admin/subscriptions?${params}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        credentials: 'include',
       });
+
+      if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem('adminUser');
+        window.location.href = '/admin/login';
+        return;
+      }
 
       const data = await response.json();
       if (data.success) {
@@ -92,17 +92,14 @@ export default function SubscriptionsPage() {
   };
 
   const updateSubscriptionStatus = async (subscriptionId: number, status: string) => {
-    const token = localStorage.getItem('adminToken');
-    if (!token) return;
-
     try {
       setUpdatingId(subscriptionId);
       const response = await fetch(`${API_URL}/admin/subscriptions/${subscriptionId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
+        credentials: 'include',
         body: JSON.stringify({ status }),
       });
 
@@ -121,16 +118,13 @@ export default function SubscriptionsPage() {
   };
 
   const cancelSubscription = async (subscriptionId: number) => {
-    const token = localStorage.getItem('adminToken');
-    if (!token) return;
-
     try {
       setUpdatingId(subscriptionId);
       const response = await fetch(`${API_URL}/admin/subscriptions/${subscriptionId}/cancel`, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
         },
+        credentials: 'include',
       });
 
       const data = await response.json();

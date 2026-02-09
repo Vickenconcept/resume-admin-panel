@@ -58,12 +58,6 @@ export default function PaymentsPage() {
       setLoading(true);
       setError(null);
 
-      const token = localStorage.getItem('adminToken');
-      if (!token) {
-        window.location.href = '/admin/login';
-        return;
-      }
-
       const params = new URLSearchParams({
         page: pagination.page.toString(),
         limit: pagination.limit.toString(),
@@ -71,8 +65,14 @@ export default function PaymentsPage() {
       if (statusFilter) params.append('status', statusFilter);
 
       const response = await fetch(`${API_URL}/admin/payments?${params}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        credentials: 'include',
       });
+
+      if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem('adminUser');
+        window.location.href = '/admin/login';
+        return;
+      }
 
       const data = await response.json();
       if (data.success) {

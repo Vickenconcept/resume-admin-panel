@@ -22,10 +22,9 @@ export default function PaymentPlansPage() {
   const [formData, setFormData] = useState({ amount: '', credits: '' });
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
     const adminUser = localStorage.getItem('adminUser');
     
-    if (!token || !adminUser) {
+    if (!adminUser) {
       router.push('/admin/login');
       return;
     }
@@ -35,13 +34,16 @@ export default function PaymentPlansPage() {
   }, [router]);
 
   const loadPaymentPlans = async () => {
-    const token = localStorage.getItem('adminToken');
-    if (!token) return;
-
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/payment-plans`, {
-        headers: { Authorization: `Bearer ${token}` },
+        credentials: 'include',
       });
+
+      if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem('adminUser');
+        router.push('/admin/login');
+        return;
+      }
 
       const data = await response.json();
       if (data.success && data.data.plans) {
@@ -73,9 +75,6 @@ export default function PaymentPlansPage() {
   };
 
   const handleSave = async () => {
-    const token = localStorage.getItem('adminToken');
-    if (!token) return;
-
     const amount = parseFloat(formData.amount);
     const credits = parseInt(formData.credits);
 
@@ -94,8 +93,8 @@ export default function PaymentPlansPage() {
         method: editingPlan ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
+        credentials: 'include',
         body: JSON.stringify({ amount, credits }),
       });
 
@@ -120,15 +119,12 @@ export default function PaymentPlansPage() {
       return;
     }
 
-    const token = localStorage.getItem('adminToken');
-    if (!token) return;
-
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/payment-plans/${planId}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${token}`,
         },
+        credentials: 'include',
       });
 
       const data = await response.json();
@@ -145,9 +141,14 @@ export default function PaymentPlansPage() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
-    router.push('/admin/login');
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    fetch(`${apiUrl}/api/admin/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    }).finally(() => {
+      localStorage.removeItem('adminUser');
+      router.push('/admin/login');
+    });
   };
 
   if (loading) {

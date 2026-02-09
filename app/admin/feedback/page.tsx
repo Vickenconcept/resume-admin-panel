@@ -63,12 +63,6 @@ export default function FeedbackPage() {
       setLoading(true);
       setError(null);
 
-      const token = localStorage.getItem('adminToken');
-      if (!token) {
-        window.location.href = '/admin/login';
-        return;
-      }
-
       const params = new URLSearchParams({
         page: pagination.page.toString(),
         limit: pagination.limit.toString(),
@@ -78,13 +72,13 @@ export default function FeedbackPage() {
 
       const response = await fetch(`${API_URL}/admin/feedback?${params}`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
       });
 
-      if (response.status === 401) {
-        localStorage.removeItem('adminToken');
+      if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem('adminUser');
         window.location.href = '/admin/login';
         return;
       }
