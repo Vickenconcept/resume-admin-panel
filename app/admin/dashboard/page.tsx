@@ -52,7 +52,9 @@ export default function AdminDashboard() {
 
   const loadDashboard = async () => {
     const adminToken = localStorage.getItem('adminToken');
-    const authHeaders = adminToken ? { Authorization: `Bearer ${adminToken}` } : {};
+    const authHeaders: HeadersInit | undefined = adminToken
+      ? { Authorization: `Bearer ${adminToken}` }
+      : undefined;
 
     try {
       const [statsRes, usersRes] = await Promise.all([
