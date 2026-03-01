@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Sidebar from '@/components/Sidebar';
+import dynamic from 'next/dynamic';
+
+const EmailBodyEditor = dynamic(() => import('@/components/EmailBodyEditor'), { ssr: false });
 
 const getApiUrl = () => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -345,21 +348,23 @@ export default function ComposeEmailPage() {
 
           {/* Body */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Body (HTML supported; use {'{{name}}'} for recipient name)</label>
-            <textarea
-              value={html}
-              onChange={(e) => setHtml(e.target.value)}
-              placeholder="Write your email content here. You can use HTML. Use {{name}} to insert the recipient's name."
-              rows={14}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 font-mono text-sm"
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Body — use the toolbar to format. Use {'{{name}}'} for the recipient&apos;s name.
+            </label>
+            <EmailBodyEditor
+              key={selectedTemplateId || 'default'}
+              initialHtml={html}
+              onChange={setHtml}
+              placeholder="Write your email here. Use {{name}} for the recipient's name."
             />
-            <div className="mt-2 p-4 border border-gray-200 rounded-lg bg-gray-50">
-              <p className="text-xs font-medium text-gray-600 mb-1">Preview</p>
-              <div
-                className="text-sm text-gray-700 prose prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: html || '<em>Empty</em>' }}
-              />
-            </div>
+            <p className="mt-2 text-xs text-gray-500">
+              Preview (how it will look in the email):
+            </p>
+            <div
+              className="mt-1 p-4 border border-gray-200 rounded-lg bg-gray-50 text-sm text-gray-700"
+              style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', maxWidth: '560px' }}
+              dangerouslySetInnerHTML={{ __html: html || '<em>Empty</em>' }}
+            />
           </div>
 
           <div className="flex items-center gap-4">
