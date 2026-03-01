@@ -28,6 +28,8 @@ interface Stats {
   totalRevenue: number;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+
 export default function AdminDashboard() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -37,6 +39,14 @@ export default function AdminDashboard() {
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState('');
   const [user, setUser] = useState<any>(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [editForm, setEditForm] = useState({ name: '', role: 'user', credits: 0, freeTrialUsed: 0 });
+  const [editSaving, setEditSaving] = useState(false);
+  const [editError, setEditError] = useState('');
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<User | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   useEffect(() => {
     const adminUser = localStorage.getItem('adminUser');
@@ -58,11 +68,11 @@ export default function AdminDashboard() {
 
     try {
       const [statsRes, usersRes] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/stats`, {
+        fetch(`${API_URL}/api/admin/stats`, {
           credentials: 'include',
           headers: authHeaders,
         }),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/users?page=${currentPage}&limit=20&search=${search}`, {
+        fetch(`${API_URL}/api/admin/users?page=${currentPage}&limit=20&search=${search}`, {
           credentials: 'include',
           headers: authHeaders,
         }),
@@ -112,28 +122,84 @@ export default function AdminDashboard() {
     });
   };
 
-  const handleUpdateUser = async (userId: number, field: string, value: any) => {
+  const openEditModal = (u: User) => {
+    setEditingUser(u);
+    setEditForm({
+      name: u.name,
+      role: u.role,
+      credits: u.credits,
+      freeTrialUsed: u.freeTrialUsed,
+    });
+    setEditError('');
+    setEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setEditModalOpen(false);
+    setEditingUser(null);
+    setEditError('');
+  };
+
+  const handleEditSave = async () => {
+    if (!editingUser) return;
+    setEditSaving(true);
+    setEditError('');
     try {
       const adminToken = localStorage.getItem('adminToken');
-      const authHeaders: HeadersInit | undefined = adminToken
-        ? { Authorization: `Bearer ${adminToken}` }
-        : undefined;
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/admin/users/${userId}`, {
+      const res = await fetch(`${API_URL}/api/admin/users/${editingUser.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          ...(authHeaders || {}),
+          ...(adminToken ? { Authorization: `Bearer ${adminToken}` } : {}),
         },
         credentials: 'include',
-        body: JSON.stringify({ [field]: value }),
+        body: JSON.stringify(editForm),
       });
-
-      const data = await response.json();
+      const data = await res.json();
       if (data.success) {
         loadDashboard();
+        closeEditModal();
+      } else {
+        setEditError(data.error || data.message || 'Update failed');
       }
-    } catch (error) {
-      console.error('Update user error:', error);
+    } catch (err: any) {
+      setEditError(err.message || 'Update failed');
+    } finally {
+      setEditSaving(false);
+    }
+  };
+
+  const openDeleteConfirm = (u: User) => {
+    setUserToDelete(u);
+    setDeleteConfirmOpen(true);
+  };
+
+  const closeDeleteConfirm = () => {
+    setDeleteConfirmOpen(false);
+    setUserToDelete(null);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!userToDelete) return;
+    setDeleteLoading(true);
+    try {
+      const adminToken = localStorage.getItem('adminToken');
+      const res = await fetch(`${API_URL}/api/admin/users/${userToDelete.id}`, {
+        method: 'DELETE',
+        headers: adminToken ? { Authorization: `Bearer ${adminToken}` } : {},
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (data.success) {
+        loadDashboard();
+        closeDeleteConfirm();
+      } else {
+        alert(data.error || data.message || 'Delete failed');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Delete failed');
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -245,14 +311,8 @@ export default function AdminDashboard() {
                         {u.role}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <input
-                        type="number"
-                        value={u.credits}
-                        onChange={(e) => handleUpdateUser(u.id, 'credits', parseInt(e.target.value))}
-                        onBlur={(e) => handleUpdateUser(u.id, 'credits', parseInt(e.target.value))}
-                        className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
-                      />
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {u.credits}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {u.freeTrialUsed}
@@ -264,14 +324,20 @@ export default function AdminDashboard() {
                       {u._count.payments}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <select
-                        value={u.role}
-                        onChange={(e) => handleUpdateUser(u.id, 'role', e.target.value)}
-                        className="px-2 py-1 border border-gray-300 rounded text-sm"
-                      >
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                      </select>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => openEditModal(u)}
+                          className="px-3 py-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => openDeleteConfirm(u)}
+                          className="px-3 py-1.5 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -304,6 +370,109 @@ export default function AdminDashboard() {
         </div>
         </main>
       </div>
+
+      {/* Edit User Modal */}
+      {editModalOpen && editingUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-4">Edit User</h3>
+            <p className="text-sm text-gray-500 mb-4">{editingUser.email}</p>
+            {editError && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+                {editError}
+              </div>
+            )}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input
+                  type="text"
+                  value={editForm.name}
+                  onChange={(e) => setEditForm((f) => ({ ...f, name: e.target.value }))}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                <select
+                  value={editForm.role}
+                  onChange={(e) => setEditForm((f) => ({ ...f, role: e.target.value }))}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600"
+                >
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Credits</label>
+                <input
+                  type="number"
+                  min={0}
+                  value={editForm.credits}
+                  onChange={(e) => setEditForm((f) => ({ ...f, credits: parseInt(e.target.value) || 0 }))}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Free trial used</label>
+                <input
+                  type="number"
+                  min={0}
+                  value={editForm.freeTrialUsed}
+                  onChange={(e) => setEditForm((f) => ({ ...f, freeTrialUsed: parseInt(e.target.value) || 0 }))}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                />
+              </div>
+            </div>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={closeEditModal}
+                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleEditSave}
+                disabled={editSaving}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              >
+                {editSaving ? 'Saving...' : 'Save'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete confirmation */}
+      {deleteConfirmOpen && userToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Delete user?</h3>
+            <p className="text-gray-600 mb-4">
+              Are you sure you want to delete <strong>{userToDelete.name}</strong> ({userToDelete.email})? This will remove their account and all related data. This action cannot be undone.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={closeDeleteConfirm}
+                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteConfirm}
+                disabled={deleteLoading}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+              >
+                {deleteLoading ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
