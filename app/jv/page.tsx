@@ -1,22 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 
 const SALES_PAGE_URL = '/sales';
-
-const getApiUrl = () => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  if (!apiUrl) {
-    if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
-      return 'https://onpagecv.on-forge.com';
-    }
-    return 'http://localhost:3000';
-  }
-  return apiUrl;
-};
-
-const API_URL = `${getApiUrl()}/api`;
 
 const CHROME_WEB_STORE_URL =
   'https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni';
@@ -24,44 +11,7 @@ const CHROME_WEB_STORE_URL =
 const JVZOO_AFFILIATE_URL = '#';
 
 export default function JvPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [wherePromote, setWherePromote] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!name || !email) return;
-    try {
-      setSubmitting(true);
-      setSubmitted(false);
-      const res = await fetch(`${API_URL}/jv/affiliate-request`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          wherePromote,
-        }),
-      });
-      const data = await res.json().catch(() => null);
-      if (!res.ok || !data?.success) {
-        // Soft-fail: keep UI simple but log to console
-        // eslint-disable-next-line no-console
-        console.error('Affiliate request submit failed', data);
-        return;
-      }
-      setSubmitted(true);
-      setName('');
-      setEmail('');
-      setWherePromote('');
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  const [submitted] = useState(false);
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-50">
@@ -92,7 +42,12 @@ export default function JvPage() {
             <a href="#sales-preview" className="rounded-full bg-slate-900 px-3 py-1 hover:bg-slate-800">
               Sales Page Preview
             </a>
-            <a href="#apply" className="rounded-full bg-emerald-500 px-3 py-1 text-slate-950 hover:bg-emerald-400">
+            <a
+              href={JVZOO_AFFILIATE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-emerald-500 px-3 py-1 text-slate-950 hover:bg-emerald-400"
+            >
               Get Affiliate Link
             </a>
           </nav>
@@ -330,55 +285,24 @@ export default function JvPage() {
               <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-[11px] font-semibold text-slate-200">
                 Step 1 – Get affiliate approval
               </p>
-              <h3 className="mt-3 text-sm font-semibold text-slate-50">Submit your JV request</h3>
+              <h3 className="mt-3 text-sm font-semibold text-slate-50">Click to apply on WarriorPlus / JVZoo</h3>
               <p className="mt-2 text-xs text-slate-200">
-                Fill out the quick form below so we know who you are and where you plan to promote. We reply as
-                fast as possible and prioritize serious, ethical affiliates.
+                When you click the button below, you&apos;ll go to the official affiliate signup page for this
+                offer on the marketplace. Log in, click request approval, and you&apos;ll get your unique link once
+                approved.
               </p>
-              <form onSubmit={handleSubmit} className="mt-4 space-y-3 text-xs">
-                <div className="space-y-1">
-                  <label className="block text-slate-200">Name</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-slate-50 outline-none ring-0 focus:border-emerald-400"
-                    placeholder="Your name"
-                    required
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block text-slate-200">Email</label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-slate-50 outline-none ring-0 focus:border-emerald-400"
-                    placeholder="you@example.com"
-                    required
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="block text-slate-200">Where will you promote?</label>
-                  <textarea
-                    value={wherePromote}
-                    onChange={(e) => setWherePromote(e.target.value)}
-                    className="min-h-[70px] w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-slate-50 outline-none ring-0 focus:border-emerald-400"
-                    placeholder="Example: Email list, YouTube channel, Facebook group, LinkedIn audience…"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={submitting || submitted}
-                  className="mt-2 inline-flex w-full items-center justify-center rounded-lg bg-emerald-500 px-4 py-2 text-[11px] font-semibold text-slate-950 hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60 transition-colors"
-                >
-                  {submitted ? 'Application Received' : submitting ? 'Submitting…' : 'Apply To Promote'}
-                </button>
-                <p className="mt-2 text-[10px] text-slate-400">
-                  We respect your privacy and will only use your details to follow up about the OnPage CV launch
-                  and JV opportunities.
-                </p>
-              </form>
+              <a
+                href={JVZOO_AFFILIATE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-emerald-500 px-4 py-2 text-[11px] font-semibold text-slate-950 hover:bg-emerald-400 transition-colors"
+              >
+                Apply To Promote (Affiliate Signup Page)
+              </a>
+              <p className="mt-2 text-[10px] text-slate-400">
+                Your affiliate link is generated and tracked by the marketplace itself — you&apos;ll see it inside
+                your WarriorPlus or JVZoo dashboard after approval.
+              </p>
             </div>
             <div className="rounded-2xl bg-slate-950/70 p-5 ring-1 ring-slate-800">
               <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-[11px] font-semibold text-slate-200">
