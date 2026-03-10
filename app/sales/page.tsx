@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 
 const CHROME_WEB_STORE_URL =
@@ -260,26 +261,41 @@ export default function SalesPage() {
                 step: 'Step 1',
                 title: 'Install the extension',
                 desc: 'Add OnPage CV from the Chrome Web Store and pin it to your toolbar.',
+                image: '/images/onpagecv-step-1.png',
               },
               {
                 step: 'Step 2',
                 title: 'Open a job & launch OnPage CV',
                 desc: 'On any job page, open the extension, select your resume, and let AI analyze the description.',
+                image: '/images/onpagecv-step-2.png',
               },
               {
                 step: 'Step 3',
                 title: 'Download your tailored resume',
                 desc: 'Get a clean, ATS-aware version you can upload immediately and reuse for similar roles.',
+                image: '/images/onpagecv-step-3.png',
               },
             ].map((item) => (
               <div
                 key={item.step}
                 className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-md"
               >
-                <div className="mb-3 inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
-                  {item.step}
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="relative h-14 w-14 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+                      {item.step}
+                    </div>
+                    <h3 className="mt-2 text-lg font-semibold text-gray-900">{item.title}</h3>
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
                 <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
