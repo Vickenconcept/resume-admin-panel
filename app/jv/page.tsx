@@ -4,6 +4,20 @@ import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 
 const SALES_PAGE_URL = '/sales';
+
+const getApiUrl = () => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (!apiUrl) {
+    if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
+      return 'https://onpagecv.on-forge.com';
+    }
+    return 'http://localhost:3000';
+  }
+  return apiUrl;
+};
+
+const API_URL = `${getApiUrl()}/api`;
+
 const CHROME_WEB_STORE_URL =
   'https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni';
 // Placeholder – update to your real JVZoo affiliate tools/signup URL when ready
@@ -16,14 +30,37 @@ export default function JvPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!name || !email) return;
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      setSubmitting(true);
+      setSubmitted(false);
+      const res = await fetch(`${API_URL}/jv/affiliate-request`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          wherePromote,
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.success) {
+        // Soft-fail: keep UI simple but log to console
+        // eslint-disable-next-line no-console
+        console.error('Affiliate request submit failed', data);
+        return;
+      }
       setSubmitted(true);
-    }, 600);
+      setName('');
+      setEmail('');
+      setWherePromote('');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

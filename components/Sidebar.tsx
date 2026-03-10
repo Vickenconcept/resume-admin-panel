@@ -13,6 +13,7 @@ export default function Sidebar() {
     { href: '/admin/payment-plans', label: 'Payment Plans', icon: '💳' },
     { href: '/admin/feedback', label: 'Feedback', icon: '💬' },
     { href: '/admin/email', label: 'Compose Email', icon: '✉️' },
+    { href: '/admin/affiliates', label: 'Affiliate Requests', icon: '🤝' },
   ];
 
   return (
