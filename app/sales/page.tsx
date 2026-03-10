@@ -280,7 +280,7 @@ export default function SalesPage() {
                 key={item.step}
                 className="rounded-2xl border border-gray-100 bg-white p-4 shadow-md md:p-6"
               >
-                <div className="grid items-center gap-4 md:grid-cols-[minmax(0,0.9fr),minmax(0,1.1fr)]">
+                <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
                   <div className="relative h-40 w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 md:h-48">
                     <Image
                       src={item.image}
