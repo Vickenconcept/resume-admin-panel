@@ -281,7 +281,7 @@ export default function SalesPage() {
                 className="rounded-2xl border border-gray-100 bg-white p-4 shadow-md md:p-6"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
-                  <div className="relative h-72 w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 md:h-48">
+                  <div className="relative h-96 w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 md:h-48">
                     <Image
                       src={item.image}
                       alt={item.title}
