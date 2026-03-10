@@ -255,7 +255,7 @@ export default function SalesPage() {
               use OnPage CV.
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="space-y-6">
             {[
               {
                 step: 'Step 1',
@@ -278,10 +278,10 @@ export default function SalesPage() {
             ].map((item) => (
               <div
                 key={item.step}
-                className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-md"
+                className="rounded-2xl border border-gray-100 bg-white p-4 shadow-md md:p-6"
               >
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="relative h-14 w-14 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
+                <div className="grid items-center gap-4 md:grid-cols-[minmax(0,0.9fr),minmax(0,1.1fr)]">
+                  <div className="relative h-40 w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 md:h-48">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -293,10 +293,10 @@ export default function SalesPage() {
                     <div className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
                       {item.step}
                     </div>
-                    <h3 className="mt-2 text-lg font-semibold text-gray-900">{item.title}</h3>
+                    <h3 className="mt-3 text-lg font-semibold text-gray-900">{item.title}</h3>
+                    <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
                   </div>
                 </div>
-                <p className="mt-2 text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>
