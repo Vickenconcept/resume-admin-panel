@@ -3,21 +3,8 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-const CHROME_WEB_STORE_URL =
-  'https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni?utm_source=jvzoo-sales-page';
-
 export default function SalesPage() {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(CHROME_WEB_STORE_URL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    } catch {
-      setCopied(false);
-    }
-  };
+  const [copied] = useState(false);
 
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50">
@@ -35,14 +22,6 @@ export default function SalesPage() {
               <p className="text-sm font-semibold text-gray-900">AI Resume Tailor</p>
             </div>
           </div>
-          <a
-            href={CHROME_WEB_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-colors"
-          >
-            Install OnPage CV
-          </a>
         </div>
       </header>
 
@@ -67,31 +46,6 @@ export default function SalesPage() {
               <li>✅ Automatically includes the right skills, tools, and keywords.</li>
               <li>✅ Keeps your resume clean, simple, and ATS-friendly.</li>
             </ul>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href={CHROME_WEB_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-7 py-3 text-sm font-semibold text-white shadow-lg hover:bg-blue-700 transition-colors"
-              >
-                Install OnPage CV Free
-              </a>
-              <button
-                type="button"
-                onClick={handleCopyLink}
-                className="inline-flex items-center justify-center rounded-lg border border-blue-600 bg-white px-7 py-3 text-sm font-semibold text-blue-700 hover:bg-blue-50 transition-colors"
-              >
-                Copy Install Link
-              </button>
-            </div>
-            {copied && (
-              <p className="mt-2 text-xs font-semibold text-emerald-600">
-                Install link copied. Share it in your browser or with your audience.
-              </p>
-            )}
-            <p className="mt-4 text-xs text-gray-500">
-              Works great whether you search for OnPage CV, onpage cv, or on-page cv in Chrome.
-            </p>
           </div>
 
           {/* Visual mockup */}
@@ -281,7 +235,7 @@ export default function SalesPage() {
                 className="rounded-2xl border border-gray-100 bg-white p-4 shadow-md md:p-6"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
-                  <div className="relative h-96 w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 md:h-48">
+                  <div className="relative h-96 w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50 md:h-72">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -423,26 +377,10 @@ export default function SalesPage() {
               Ready to send resumes that finally match the jobs you&apos;re applying for?
             </h2>
             <p className="mt-3 text-sm text-blue-100">
-              Install OnPage CV in your browser, open your next job listing, and let AI do the heavy lifting. You
-              stay in control — but no longer have to start from a blank page.
+              This page explains exactly how OnPage CV works and who it&apos;s for. When your JVZoo checkout link
+              is live, this is where the main &quot;Get Access&quot; button will live for buyers coming from
+              affiliates.
             </p>
-            <div className="mt-6 flex flex-col gap-3">
-              <a
-                href={CHROME_WEB_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-semibold text-blue-700 hover:bg-blue-50 transition-colors"
-              >
-                Install OnPage CV Free
-              </a>
-              <button
-                type="button"
-                onClick={handleCopyLink}
-                className="inline-flex items-center justify-center rounded-lg border border-white/70 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
-              >
-                Copy Install Link
-              </button>
-            </div>
           </div>
         </section>
       </main>

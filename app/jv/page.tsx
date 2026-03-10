@@ -1,14 +1,29 @@
 'use client';
 
 import Link from 'next/link';
+import { FormEvent, useState } from 'react';
 
 const SALES_PAGE_URL = '/sales';
 const CHROME_WEB_STORE_URL =
   'https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni';
-// TODO: Replace with your real JVZoo affiliate signup URL for OnPage CV
-const JVZOO_AFFILIATE_URL = '#';
 
 export default function JvPage() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [wherePromote, setWherePromote] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!name || !email) return;
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
+      setSubmitted(true);
+    }, 600);
+  };
+
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-50">
       {/* Header */}
@@ -25,28 +40,32 @@ export default function JvPage() {
               <p className="text-sm font-semibold text-slate-50">AI Resume Tailor Chrome Extension</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <Link
-              href={SALES_PAGE_URL}
-              className="rounded-lg border border-slate-700 px-4 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-800 transition-colors"
-            >
-              View Sales Page
-            </Link>
-            <a
-              href={JVZOO_AFFILIATE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg bg-emerald-500 px-4 py-2 text-xs font-semibold text-slate-950 shadow hover:bg-emerald-400 transition-colors"
-            >
-              Apply To Promote On JVZoo
+          <nav className="flex flex-wrap items-center gap-3 text-[11px] font-semibold text-slate-200">
+            <a href="#jv-doc" className="rounded-full bg-slate-900 px-3 py-1 hover:bg-slate-800">
+              JV Doc
             </a>
-          </div>
+            <a href="#prizes" className="rounded-full bg-slate-900 px-3 py-1 hover:bg-slate-800">
+              Prizes
+            </a>
+            <a href="#swipes" className="rounded-full bg-slate-900 px-3 py-1 hover:bg-slate-800">
+              Swipes
+            </a>
+            <a href="#sales-preview" className="rounded-full bg-slate-900 px-3 py-1 hover:bg-slate-800">
+              Sales Page Preview
+            </a>
+            <a href="#apply" className="rounded-full bg-emerald-500 px-3 py-1 text-slate-950 hover:bg-emerald-400">
+              Get Affiliate Link
+            </a>
+          </nav>
         </div>
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-10 space-y-16">
         {/* Hero / Big Promise */}
-        <section className="grid items-center gap-8 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800 md:grid-cols-[1.3fr,0.9fr]">
+        <section
+          id="jv-doc"
+          className="grid items-center gap-8 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800 md:grid-cols-[1.3fr,0.9fr]"
+        >
           <div>
             <p className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-300">
               JV & Affiliates – OnPage CV Launch
@@ -91,12 +110,10 @@ export default function JvPage() {
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
               <a
-                href={JVZOO_AFFILIATE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#apply"
                 className="inline-flex items-center justify-center rounded-lg bg-emerald-500 px-6 py-3 text-xs font-semibold text-slate-950 shadow hover:bg-emerald-400 transition-colors"
               >
-                Get Your JVZoo Affiliate Link
+                Apply To Promote
               </a>
               <Link
                 href={SALES_PAGE_URL}
@@ -126,7 +143,10 @@ export default function JvPage() {
         </section>
 
         {/* Demo section */}
-        <section className="grid items-start gap-8 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800 md:grid-cols-[1.1fr,0.9fr]">
+        <section
+          id="sales-preview"
+          className="grid items-start gap-8 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800 md:grid-cols-[1.1fr,0.9fr]"
+        >
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-emerald-300">
               See the product in action
@@ -166,7 +186,10 @@ export default function JvPage() {
         </section>
 
         {/* How the funnel & money side works */}
-        <section className="space-y-6 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800">
+        <section
+          id="prizes"
+          className="space-y-6 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800"
+        >
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <h2 className="text-2xl font-bold text-slate-50 md:text-3xl">
               How the offer is structured for JVZoo.
@@ -211,7 +234,10 @@ export default function JvPage() {
         </section>
 
         {/* Why promote section */}
-        <section className="space-y-6 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800">
+        <section
+          id="swipes"
+          className="space-y-6 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800"
+        >
           <h2 className="text-2xl font-bold text-slate-50 md:text-3xl">
             Why OnPage CV is an easy win for affiliates.
           </h2>
@@ -253,54 +279,92 @@ export default function JvPage() {
         </section>
 
         {/* How to promote in 3 steps */}
-        <section className="space-y-6 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800">
+        <section
+          id="apply"
+          className="space-y-6 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800"
+        >
           <h2 className="text-2xl font-bold text-slate-50 md:text-3xl">
             Promote OnPage CV in 3 simple steps.
           </h2>
           <div className="grid gap-5 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-950/70 p-5 ring-1 ring-slate-800">
               <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-[11px] font-semibold text-slate-200">
-                Step 1 – Get approved
+                Step 1 – Get affiliate approval
               </p>
-              <h3 className="mt-3 text-sm font-semibold text-slate-50">Apply inside JVZoo</h3>
+              <h3 className="mt-3 text-sm font-semibold text-slate-50">Submit your JV request</h3>
               <p className="mt-2 text-xs text-slate-200">
-                Click the button below, request approval, and let us know where you plan to promote (email list,
-                YouTube, social, etc.). We&apos;re especially friendly to new but serious affiliates.
+                Fill out the quick form below so we know who you are and where you plan to promote. We reply as
+                fast as possible and prioritize serious, ethical affiliates.
               </p>
-              <a
-                href={JVZOO_AFFILIATE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center justify-center rounded-lg bg-emerald-500 px-4 py-2 text-[11px] font-semibold text-slate-950 hover:bg-emerald-400 transition-colors"
-              >
-                Apply To Promote On JVZoo
-              </a>
+              <form onSubmit={handleSubmit} className="mt-4 space-y-3 text-xs">
+                <div className="space-y-1">
+                  <label className="block text-slate-200">Name</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-slate-50 outline-none ring-0 focus:border-emerald-400"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="block text-slate-200">Email</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-slate-50 outline-none ring-0 focus:border-emerald-400"
+                    placeholder="you@example.com"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="block text-slate-200">Where will you promote?</label>
+                  <textarea
+                    value={wherePromote}
+                    onChange={(e) => setWherePromote(e.target.value)}
+                    className="min-h-[70px] w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-slate-50 outline-none ring-0 focus:border-emerald-400"
+                    placeholder="Example: Email list, YouTube channel, Facebook group, LinkedIn audience…"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={submitting || submitted}
+                  className="mt-2 inline-flex w-full items-center justify-center rounded-lg bg-emerald-500 px-4 py-2 text-[11px] font-semibold text-slate-950 hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60 transition-colors"
+                >
+                  {submitted ? 'Application Received' : submitting ? 'Submitting…' : 'Apply To Promote'}
+                </button>
+                <p className="mt-2 text-[10px] text-slate-400">
+                  We respect your privacy and will only use your details to follow up about the OnPage CV launch
+                  and JV opportunities.
+                </p>
+              </form>
             </div>
             <div className="rounded-2xl bg-slate-950/70 p-5 ring-1 ring-slate-800">
               <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-[11px] font-semibold text-slate-200">
-                Step 2 – Plug in your link
+                Step 2 – Grab your link
               </p>
-              <h3 className="mt-3 text-sm font-semibold text-slate-50">Use our sales page & demo</h3>
+              <h3 className="mt-3 text-sm font-semibold text-slate-50">Get your JVZoo affiliate URL</h3>
               <p className="mt-2 text-xs text-slate-200">
-                Send traffic to the main sales page at{' '}
+                Once approved, you&apos;ll receive your JVZoo affiliate link. Send traffic to the main sales page at{' '}
                 <Link
                   href={SALES_PAGE_URL}
                   className="text-emerald-300 underline underline-offset-2"
                 >
                   {SALES_PAGE_URL}
                 </Link>{' '}
-                using your JVZoo affiliate link. The long-form copy, demo video, and three-step explanation are
-                built to do the heavy lifting for you.
+                and let the long-form copy and demo do the selling for you.
               </p>
             </div>
             <div className="rounded-2xl bg-slate-950/70 p-5 ring-1 ring-slate-800">
               <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-[11px] font-semibold text-slate-200">
-                Step 3 – Grab swipes & support
+                Step 3 – Use our promo assets
               </p>
-              <h3 className="mt-3 text-sm font-semibold text-slate-50">Use our done-for-you assets</h3>
+              <h3 className="mt-3 text-sm font-semibold text-slate-50">Launch with swipes & creatives</h3>
               <p className="mt-2 text-xs text-slate-200">
-                Once approved, you can reach out for email swipes, social post ideas, and short-form script
-                prompts. We can also share new templates and angles with you as we expand the product.
+                We&apos;ll share email swipes, post ideas, and hooks you can plug into your campaigns. You get a
+                simple, repeatable promo sequence that you can run on every new cohort of job seekers.
               </p>
             </div>
           </div>
