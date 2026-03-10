@@ -152,6 +152,44 @@ export default function SalesPage() {
           </div>
         </section>
 
+        {/* Demo video section */}
+        <section className="rounded-3xl border border-gray-100 bg-white/90 p-6 shadow-xl">
+          <div className="grid gap-8 lg:grid-cols-[1.1fr,0.9fr] items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                See it working in real time
+              </p>
+              <h2 className="mt-2 text-2xl font-bold text-gray-900 md:text-3xl">
+                Watch how OnPage CV tailors a resume directly on the job page.
+              </h2>
+              <p className="mt-3 text-sm text-gray-700">
+                In this short demo you&apos;ll see exactly how quickly you can go from a plain, generic resume to a
+                focused, AI-optimized version that matches the role you&apos;re applying for.
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-gray-700">
+                <li>• How the extension reads the job description in your browser.</li>
+                <li>• How AI suggests stronger, clearer bullets based on what the job asks for.</li>
+                <li>• How you can download and reuse your tailored resume for similar roles.</li>
+              </ul>
+            </div>
+            <div>
+              <div className="aspect-video w-full overflow-hidden rounded-2xl border border-gray-200 bg-black shadow-lg">
+                <iframe
+                  className="h-full w-full"
+                  src="https://www.youtube.com/embed/RxOsWhVq2y4"
+                  title="OnPage CV Demo"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <p className="mt-3 text-xs text-gray-500">
+                Prefer to watch later? Bookmark this page and come back when you&apos;re ready to install and try it
+                on your next application.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Pain section */}
         <section className="grid items-start gap-10 lg:grid-cols-2">
           <div className="space-y-4">
@@ -293,6 +331,47 @@ export default function SalesPage() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Package & email list benefits */}
+        <section className="space-y-6 rounded-3xl border border-gray-100 bg-white p-6 shadow-xl">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
+              When you install OnPage CV, you&apos;re not just getting an extension…
+            </h2>
+            <p className="max-w-md text-sm text-gray-700">
+              You&apos;re also joining a growing community of job seekers and professionals who get ongoing AI help
+              with their applications.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-2xl border border-blue-100 bg-blue-50/70 p-5">
+              <h3 className="text-base font-semibold text-gray-900">The core OnPage CV extension</h3>
+              <p className="mt-2 text-sm text-gray-700">
+                Tailor resumes right on the job page, get stronger wording, and keep everything ATS-friendly — all
+                inside your browser.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-purple-100 bg-purple-50/70 p-5">
+              <h3 className="text-base font-semibold text-gray-900">Access to our private email list</h3>
+              <p className="mt-2 text-sm text-gray-700">
+                We&apos;ll send you new templates, examples, and short training emails that show you how to get the
+                most out of AI for your job search, without overwhelming you.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5">
+              <h3 className="text-base font-semibold text-gray-900">Custom AI application ideas, based on demand</h3>
+              <p className="mt-2 text-sm text-gray-700">
+                As more people join, we listen. You can tell us which roles, industries, or application problems you
+                want solved — and we&apos;ll keep creating new AI-powered flows, prompts, and presets around your real
+                needs.
+              </p>
+            </div>
+          </div>
+          <p className="mt-2 text-sm text-gray-700">
+            Our goal is simple: not just to give you one tool, but to keep improving how AI can support your
+            applications as hiring changes — with you on the inside, giving feedback.
+          </p>
         </section>
 
         {/* Audience + final CTA */}
