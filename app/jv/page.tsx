@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -224,6 +225,66 @@ export default function JvPage() {
                 real, repeatable problem (tailoring resumes), we expect low refunds and strong long-term EPC.
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* 3-step how it works (same as sales page) */}
+        <section className="space-y-8 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <h2 className="text-2xl font-bold text-slate-50 md:text-3xl">
+              Works in just 3 simple steps.
+            </h2>
+            <p className="max-w-xl text-sm text-slate-200">
+              You don&apos;t need to be a writer or designer. If your audience can open a job listing in their
+              browser, they can use OnPage CV.
+            </p>
+          </div>
+          <div className="space-y-6">
+            {[
+              {
+                step: 'Step 1',
+                title: 'Install the extension',
+                desc: 'Add OnPage CV from the Chrome Web Store and pin it to the toolbar.',
+                image: '/images/onpagecv-step-1.png',
+              },
+              {
+                step: 'Step 2',
+                title: 'Open a job & launch OnPage CV',
+                desc: 'On any job page, open the extension, select the resume, and let AI analyze the description.',
+                image: '/images/onpagecv-step-2.png',
+              },
+              {
+                step: 'Step 3',
+                title: 'Download the tailored resume',
+                desc: 'Get a clean, ATS-aware version ready to upload and reuse for similar roles.',
+                image: '/images/onpagecv-step-3.png',
+              },
+            ].map((item) => (
+              <div
+                key={item.step}
+                className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 shadow-md md:p-6"
+              >
+                <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2">
+                  <div className="relative h-64 w-full overflow-hidden rounded-xl border border-slate-800 bg-slate-900 md:h-72">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div className="inline-flex items-center rounded-full bg-slate-800 px-3 py-1 text-[11px] font-semibold text-emerald-300">
+                      {item.step}
+                    </div>
+                    <h3 className="mt-3 text-sm font-semibold text-slate-50 md:text-base">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-xs text-slate-200 md:text-sm">{item.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
