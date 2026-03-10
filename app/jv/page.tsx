@@ -6,6 +6,8 @@ import { FormEvent, useState } from 'react';
 const SALES_PAGE_URL = '/sales';
 const CHROME_WEB_STORE_URL =
   'https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni';
+// Placeholder – update to your real JVZoo affiliate tools/signup URL when ready
+const JVZOO_AFFILIATE_URL = '#';
 
 export default function JvPage() {
   const [name, setName] = useState('');
