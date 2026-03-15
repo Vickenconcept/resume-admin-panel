@@ -62,7 +62,7 @@ export default function JvPage() {
           className="grid items-center gap-8 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800 md:grid-cols-[1.3fr,0.9fr]"
         >
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-300">
+            <p className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-emerald-300">
               JV & Affiliates – OnPage CV Launch
             </p>
             <h1 className="mt-4 text-3xl font-extrabold leading-tight text-slate-50 md:text-4xl">
@@ -77,7 +77,7 @@ export default function JvPage() {
               job — which makes it incredibly easy to promote on email lists, LinkedIn, Facebook groups, and
               career audiences.
             </p>
-            <div className="mt-6 grid gap-4 text-xs text-slate-200 sm:grid-cols-3">
+            <div className="mt-6 grid gap-4 text-sm text-slate-200 sm:grid-cols-3">
               <div className="rounded-2xl bg-slate-900/80 p-4 ring-1 ring-slate-800">
                 <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
                   Offer Type
@@ -120,10 +120,10 @@ export default function JvPage() {
           </div>
 
           <div className="space-y-4 rounded-2xl bg-slate-950/60 p-4 ring-1 ring-slate-800">
-            <h2 className="text-base font-semibold text-slate-50">
+            <h2 className="text-lg font-semibold text-slate-50">
               Quick Snapshot For Affiliates
             </h2>
-            <ul className="space-y-2 text-xs text-slate-200">
+            <ul className="space-y-2 text-sm text-slate-200">
               <li>• Evergreen problem – everyone hates rewriting resumes for every job.</li>
               <li>• Visual AI tool – demo looks great in videos, Reels, and webinars.</li>
               <li>• Chrome extension – frictionless install and instant perceived value.</li>
@@ -143,18 +143,18 @@ export default function JvPage() {
           className="grid items-start gap-8 rounded-3xl bg-slate-900/70 p-6 shadow-xl ring-1 ring-slate-800 md:grid-cols-[1.1fr,0.9fr]"
         >
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-emerald-300">
+            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-300">
               See the product in action
             </p>
             <h2 className="mt-2 text-2xl font-bold text-slate-50 md:text-3xl">
               Watch how OnPage CV tailors a resume directly on a live job listing.
             </h2>
-            <p className="mt-3 text-sm text-slate-200">
+            <p className="mt-3 text-base text-slate-200">
               This is the same demo you can embed in your review videos, webinars, bridge pages, and social
               content. It clearly shows how the extension reads the job description and rewrites the resume
               around it in seconds.
             </p>
-            <ul className="mt-4 space-y-2 text-xs text-slate-200">
+            <ul className="mt-4 space-y-2 text-sm text-slate-200">
               <li>• Great for pre-frame: &ldquo;Let me show you why this converts for job seekers.&rdquo;</li>
               <li>• Use it as B-roll for TikTok/shorts/Reels with your own voiceover.</li>
               <li>• Add your affiliate link above/below the video on your own pages.</li>
@@ -189,7 +189,7 @@ export default function JvPage() {
             <h2 className="text-2xl font-bold text-slate-50 md:text-3xl">
               How the offer is structured for JVZoo.
             </h2>
-            <p className="max-w-md text-xs text-slate-200">
+            <p className="max-w-md text-sm text-slate-200">
               We know affiliates care about EPC, refunds, and the money-making angle. Here&apos;s how OnPage CV is
               set up so clicks can actually turn into commissions instead of just free installs.
             </p>
@@ -234,7 +234,7 @@ export default function JvPage() {
             <h2 className="text-2xl font-bold text-slate-50 md:text-3xl">
               Works in just 3 simple steps.
             </h2>
-            <p className="max-w-xl text-sm text-slate-200">
+            <p className="max-w-xl text-base text-slate-200">
               You don&apos;t need to be a writer or designer. If your audience can open a job listing in their
               browser, they can use OnPage CV.
             </p>
@@ -297,7 +297,7 @@ export default function JvPage() {
             Why OnPage CV is an easy win for affiliates.
           </h2>
           <div className="grid gap-5 md:grid-cols-2">
-            <div className="space-y-3 text-xs text-slate-200">
+            <div className="space-y-3 text-sm text-slate-200">
               <h3 className="text-sm font-semibold text-slate-50">Huge, evergreen audience</h3>
               <p>
                 Millions of people are applying for jobs every month — graduates, career switchers, remote job
@@ -325,7 +325,7 @@ export default function JvPage() {
                 <li>• &ldquo;Finally send resumes that match the tools, skills, and outcomes in the listing.&rdquo;</li>
                 <li>• &ldquo;No need to learn new software – it lives right inside your browser.&rdquo;</li>
               </ul>
-              <p className="mt-3 text-xs text-slate-200">
+              <p className="mt-3 text-sm text-slate-200">
                 Use these angles in your emails, DMs, posts, and long-form videos. We&apos;re also happy to create
                 custom hooks or swipes for your specific audience once you&apos;re on board.
               </p>
@@ -343,11 +343,11 @@ export default function JvPage() {
           </h2>
           <div className="grid gap-5 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-950/70 p-5 ring-1 ring-slate-800">
-              <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-[11px] font-semibold text-slate-200">
+              <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-xs font-semibold text-slate-200">
                 Step 1 – Get affiliate approval
               </p>
               <h3 className="mt-3 text-sm font-semibold text-slate-50">Click to apply on WarriorPlus / JVZoo</h3>
-              <p className="mt-2 text-xs text-slate-200">
+              <p className="mt-2 text-sm text-slate-200">
                 When you click the button below, you&apos;ll go to the official affiliate signup page for this
                 offer on the marketplace. Log in, click request approval, and you&apos;ll get your unique link once
                 approved.
@@ -366,11 +366,11 @@ export default function JvPage() {
               </p>
             </div>
             <div className="rounded-2xl bg-slate-950/70 p-5 ring-1 ring-slate-800">
-              <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-[11px] font-semibold text-slate-200">
+              <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-xs font-semibold text-slate-200">
                 Step 2 – Grab your link
               </p>
               <h3 className="mt-3 text-sm font-semibold text-slate-50">Get your JVZoo affiliate URL</h3>
-              <p className="mt-2 text-xs text-slate-200">
+              <p className="mt-2 text-sm text-slate-200">
                 Once approved, you&apos;ll receive your JVZoo affiliate link. Send traffic to the main sales page at{' '}
                 <Link
                   href={SALES_PAGE_URL}
@@ -382,11 +382,11 @@ export default function JvPage() {
               </p>
             </div>
             <div className="rounded-2xl bg-slate-950/70 p-5 ring-1 ring-slate-800">
-              <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-[11px] font-semibold text-slate-200">
+              <p className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-xs font-semibold text-slate-200">
                 Step 3 – Use our promo assets
               </p>
               <h3 className="mt-3 text-sm font-semibold text-slate-50">Launch with swipes & creatives</h3>
-              <p className="mt-2 text-xs text-slate-200">
+              <p className="mt-2 text-sm text-slate-200">
                 We&apos;ll share email swipes, post ideas, and hooks you can plug into your campaigns. You get a
                 simple, repeatable promo sequence that you can run on every new cohort of job seekers.
               </p>
