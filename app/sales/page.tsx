@@ -141,6 +141,14 @@ export default function SalesPage() {
                 Prefer to watch later? Bookmark this page and come back when you&apos;re ready to install and try it
                 on your next application.
               </p>
+              <div
+                className="mt-6 flex justify-center"
+                // JVZoo required buy button + tracking pixel (do not modify)
+                dangerouslySetInnerHTML={{
+                  __html:
+                    '<a href="https://www.jvzoo.com/b/115933/435703/4"><img src="https://i.jvzoo.com/115933/435703/4" alt="onPage CV" border="0" /></a>',
+                }}
+              />
             </div>
           </div>
         </section>
