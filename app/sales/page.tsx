@@ -388,6 +388,15 @@ export default function SalesPage() {
                   '<a href="https://www.jvzoo.com/b/115933/435703/4"><img src="https://i.jvzoo.com/115933/435703/4" alt="onPage CV" border="0" /></a>',
               }}
             />
+            <p className="mt-4 text-xs text-blue-100 md:text-sm">
+              Support:{" "}
+              <a
+                href="mailto:vicken408@gmail.com"
+                className="underline underline-offset-2"
+              >
+                vicken408@gmail.com
+              </a>
+            </p>
           </div>
         </section>
 

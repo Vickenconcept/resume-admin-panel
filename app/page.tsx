@@ -22,14 +22,6 @@ export default function LandingPage() {
               </div>
               <span className="text-2xl font-bold text-gray-900">OnPage CV</span>
             </div>
-            <a
-              href="https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni?utm_source=item-share-cb"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-md"
-            >
-              Install Extension
-            </a>
           </div>
         </div>
       </header>
@@ -55,14 +47,6 @@ export default function LandingPage() {
               helps you tailor your resume right on the job page.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
-              <a
-                href="https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni?utm_source=item-share-cb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg shadow-lg"
-              >
-                Get Started Free
-              </a>
               <a
                 href="#how-it-works"
                 className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-semibold text-lg"
@@ -208,16 +192,9 @@ export default function LandingPage() {
         <div className="mt-24 rounded-3xl bg-linear-to-r from-blue-600 to-purple-600 p-12 text-center text-white shadow-2xl">
           <h2 className="text-3xl md:text-4xl font-bold">Ready to tailor your resume in seconds?</h2>
           <p className="mt-4 text-lg text-blue-100">
-            Install OnPage CV and start applying with confidence today.
+            Once you complete your purchase, we&apos;ll send you to a step-by-step page with the install link and setup
+            instructions.
           </p>
-          <a
-            href="https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni?utm_source=item-share-cb"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex px-8 py-4 bg-white text-blue-700 rounded-lg hover:bg-blue-50 transition-colors font-semibold text-lg"
-          >
-            Install Extension
-          </a>
         </div>
       </main>
 

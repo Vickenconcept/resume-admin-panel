@@ -6,8 +6,7 @@ import { useState } from 'react';
 
 const SALES_PAGE_URL = '/sales';
 
-const CHROME_WEB_STORE_URL =
-  'https://chromewebstore.google.com/detail/onpage-cv/biglceojgmidchjmifhennljloohamni';
+const CHROME_WEB_STORE_URL = '#';
 // Placeholder – update to your real JVZoo affiliate tools/signup URL when ready
 const JVZOO_AFFILIATE_URL = '#';
 
@@ -198,16 +197,8 @@ export default function JvPage() {
             <div className="rounded-2xl bg-slate-950/70 p-5 ring-1 ring-slate-800">
               <h3 className="text-sm font-semibold text-slate-50">1. Freemium front door</h3>
               <p className="mt-2 text-xs text-slate-200">
-                Users can install a free version of the Chrome extension from the{' '}
-                <a
-                  href={CHROME_WEB_STORE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-emerald-300 underline underline-offset-2"
-                >
-                  Chrome Web Store
-                </a>{' '}
-                to experience how fast AI tailoring works. This builds trust and usage without resistance.
+                Users first complete their purchase securely via JVZoo. After checkout, they&apos;re redirected to a
+                guided onboarding page where they can install the Chrome extension and follow clear setup steps.
               </p>
             </div>
             <div className="rounded-2xl bg-slate-950/70 p-5 ring-1 ring-slate-800">
