@@ -147,11 +147,11 @@ export default function SalesPage() {
           {/* Mid-page purchase card */}
           <div className="mt-8 rounded-3xl bg-linear-to-br from-blue-600 to-purple-600 p-5 text-white shadow-2xl md:p-6">
             <h3 className="text-lg font-semibold md:text-xl">
-              Ready to unlock OnPage CV Pro after watching the demo?
+              Ready to send resumes that finally match the jobs you&apos;re applying for?
             </h3>
             <p className="mt-2 text-xs text-blue-100 md:text-sm">
-              Use the secure JVZoo button below to get access. You&apos;ll receive your login details and extension link
-              immediately after purchase.
+              This page explains exactly how OnPage CV works and who it&apos;s for. Use the button below to get access
+              securely via JVZoo.
             </p>
             <div
               className="mt-4 flex justify-center"
