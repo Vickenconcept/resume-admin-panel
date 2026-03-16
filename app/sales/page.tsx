@@ -141,15 +141,26 @@ export default function SalesPage() {
                 Prefer to watch later? Bookmark this page and come back when you&apos;re ready to install and try it
                 on your next application.
               </p>
-              <div
-                className="mt-6 flex justify-center"
-                // JVZoo required buy button + tracking pixel (do not modify)
-                dangerouslySetInnerHTML={{
-                  __html:
-                    '<a href="https://www.jvzoo.com/b/115933/435703/4"><img src="https://i.jvzoo.com/115933/435703/4" alt="onPage CV" border="0" /></a>',
-                }}
-              />
             </div>
+          </div>
+
+          {/* Mid-page purchase card */}
+          <div className="mt-8 rounded-3xl bg-linear-to-br from-blue-600 to-purple-600 p-5 text-white shadow-2xl md:p-6">
+            <h3 className="text-lg font-semibold md:text-xl">
+              Ready to unlock OnPage CV Pro after watching the demo?
+            </h3>
+            <p className="mt-2 text-xs text-blue-100 md:text-sm">
+              Use the secure JVZoo button below to get access. You&apos;ll receive your login details and extension link
+              immediately after purchase.
+            </p>
+            <div
+              className="mt-4 flex justify-center"
+              // JVZoo required buy button + tracking pixel (do not modify)
+              dangerouslySetInnerHTML={{
+                __html:
+                  '<a href="https://www.jvzoo.com/b/115933/435703/4"><img src="https://i.jvzoo.com/115933/435703/4" alt="onPage CV" border="0" /></a>',
+              }}
+            />
           </div>
         </section>
 
